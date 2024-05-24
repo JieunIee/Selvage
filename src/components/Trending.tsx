@@ -1,5 +1,5 @@
 'use client'
-// Import Swiper React components
+import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -8,21 +8,20 @@ import 'swiper/css/pagination';
 import PostListCard from './PostListCard';
 import GridSpinner from './ui/GridSpinner';
 import usePosts from '@/hooks/posts';
+import { SimplePost } from '@/model/post';
 
 export default function Trending() {
-    const { posts, isLoading: loading } = usePosts();
-    const sort = posts && 
-              (posts.sort(function (comp1, comp2) {
-              var comp1UC = comp1.likes.length;
-              var comp2UC = comp2.likes.length;
-              if (comp1UC < comp2UC) {
-                return -1;
-              } else if (comp1UC > comp2UC) {
-                return 1;
-              }
-              return 0;
-            }))
-      const trending = sort?.splice(sort.length-5)
+  const { posts, isLoading: loading } = usePosts();
+  const [trendingPosts, setTrendingPosts] = useState<SimplePost[]>([]);
+
+  useEffect(() => {
+    if (posts) {
+      const sorted = [...posts].sort((a, b) => b.likes.length - a.likes.length);
+      const trending = sorted.slice(0, 5);
+      setTrendingPosts(trending);
+    }
+  }, [posts]);
+
 return (
   <div>
     {loading && (
@@ -48,10 +47,10 @@ return (
       modules={[EffectCoverflow, Pagination]}
       className="mySwiper w-{750px} pt-20 pb-20 flex justify-center"
     >
-      {posts && (
+      {trendingPosts && (
         <>
           {
-            trending?.map((post, index) => (
+            trendingPosts.map((post, index) => (
               <SwiperSlide key={post.id}>
                 <PostListCard post={post} priority={index < 2} />
               </SwiperSlide>
