@@ -1,7 +1,7 @@
 # Selvage
 
-- 개인프로젝트 - 전세계 패션을 잇는 플랫폼
-- [배포 링크](https://selvage-qnbjip0qg-thetomatoaddict.vercel.app/)
+- 개인프로젝트: 전세계를 잇는 패션 플랫폼
+- [배포 링크](https://selvage.vercel.app/)
 - 테스트계정으로 로그인 가능
 
 ## 구현 기능
