@@ -28,6 +28,9 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      return `${baseUrl}/api/auth/callback/google`;
+    },
     async signIn({ user: { id, name, image, email } }) {
       if (!email) {
         return false;
