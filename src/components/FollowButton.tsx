@@ -31,6 +31,14 @@ export default function FollowButton({ user }: Props) {
     startTransition(() => {
       router.refresh();
     });
+
+    if (following) {
+      loggedInUser.following = loggedInUser.following.filter(
+        (item) => item.username !== username
+      );
+    } else {
+      loggedInUser?.following.push({ ...user });
+    }
   };
 
   return (
