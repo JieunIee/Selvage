@@ -3,7 +3,7 @@ import usePosts from '@/hooks/posts';
 import PostGridCard from './PostGridCard';
 import GridSpinner from './ui/GridSpinner';
 
-export default function PostGrid() {
+export default function New() {
   const { posts, isLoading } = usePosts();
 
   return (
